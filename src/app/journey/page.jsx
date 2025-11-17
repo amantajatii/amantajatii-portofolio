@@ -1,4 +1,5 @@
 import React from "react";
+import Section from "@/components/Section";
 
 const projectsList = [
   {
@@ -85,52 +86,22 @@ const organizationsList = [
       "I provided documentation support, showcasing strong teamwork, communication, and adaptability skills.",
   },
 ];
+
 const Journey = () => {
   return (
-    <div className="mb-8">
-      <h2 className="font-bold text-3xl flex flex-col w-fit md:gap-2 bg-white rounded-lg shadow-md px-8 py-4 mt-4 text-center text-[#186d69]">
-        Technical Projects & Training
-      </h2>
-      <div>
-        {projectsList.map((project) => (
-          <div
-            className="flex flex-col md:gap-2 bg-white rounded-lg shadow-md px-8 py-8 mt-4"
-            key={project.id}>
-            <div className="flex flex-col" key={project.id}>
-              <h1 className="text-3xl font-bold uppercase text-[#22aa9e]">
-                {project.title}
-              </h1>
-              <h3 className="uppercase text-[#3bc6b7] font-semibold mt-1">
-                {project.year} - {project.position}
-              </h3>
-              <p className="mt-3 text-justify text-[#184947]">
-                {project.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <h2 className="font-bold text-3xl flex flex-col w-fit md:gap-2 bg-white rounded-lg shadow-md px-8 py-4 mt-4 text-center text-[#186d69]">
-        Technical Projects & Training
-      </h2>
-      <div>
-        {organizationsList.map((organization) => (
-          <div
-            className="flex flex-col md:gap-2 bg-white rounded-lg shadow-md px-8 py-8 mt-4"
-            key={organization.id}>
-            <div className="flex flex-col" key={organization.id}>
-              <h1 className="text-3xl font-bold uppercase text-[#22aa9e]">
-                {organization.title}
-              </h1>
-              <h3 className="uppercase text-[#3bc6b7] font-semibold mt-1">
-                {organization.year} - {organization.position}
-              </h3>
-              <p className="mt-3 text-justify text-[#184947]">
-                {organization.description}
-              </p>
-            </div>
-          </div>
-        ))}
+    <div className="mb-16 mt-4">
+      <div className="max-w-5xl mx-auto px-4 md:px-0">
+        <Section
+          title="Technical Projects & Training"
+          subtitle="Hands-on experience in software engineering, Web3, and emerging technologies."
+          items={projectsList}
+        />
+
+        <Section
+          title="Organizations & Event Involvement"
+          subtitle="Design, documentation, and creative roles across student organizations and events."
+          items={organizationsList}
+        />
       </div>
     </div>
   );

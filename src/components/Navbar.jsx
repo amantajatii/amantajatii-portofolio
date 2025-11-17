@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white px-8 py-4 w-full rounded-lg shadow-md flex justify-between items-center">
+    <div className=" bg-white px-8 py-4 w-full rounded-xl shadow-md flex justify-between items-center">
       <div className="">
         <p className="font-bold text-[#18857e]">Amantajatii</p>
       </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
                 <Link href="/">Projects</Link>
               </li>
               <li>
-                <button className="px-4 py-2 bg-[#18857e] rounded-lg text-white shadow-md hover:bg-[#159c95] transition">
+                <button className="px-4 py-2 bg-[#18857e] rounded-lg text-white shadow-md hover:bg-[#159c95] transition cursor-pointer">
                   Contact me
                 </button>
               </li>
