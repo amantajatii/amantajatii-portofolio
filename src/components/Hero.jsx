@@ -26,7 +26,8 @@ const Hero = () => {
                  text-gray-700 bg-white
                  shadow-sm hover:shadow-md
                  hover:bg-black hover:text-white
-                 transition-all duration-300">
+                 transition-all duration-300"
+              target="_blank">
               <FiGithub size={20} />
             </a>
           </li>
@@ -39,7 +40,8 @@ const Hero = () => {
                  text-blue-600 bg-white
                  shadow-sm hover:shadow-md
                  hover:bg-blue-600 hover:text-white
-                 transition-all duration-300">
+                 transition-all duration-300"
+              target="_blank">
               <FiLinkedin size={20} />
             </a>
           </li>
@@ -52,14 +54,17 @@ const Hero = () => {
                  text-sky-500 bg-white
                  shadow-sm hover:shadow-md
                  hover:bg-sky-500 hover:text-white
-                 transition-all duration-300">
+                 transition-all duration-300"
+              target="_blank">
               <FiTwitter size={20} />
             </a>
           </li>
         </ul>
 
         <div>
-          <Link href="https://mail.google.com/mail/u/0/?fs=1&to=amantajati15@gmail.com&tf=cm">
+          <Link
+            href="https://mail.google.com/mail/u/0/?fs=1&to=amantajati15@gmail.com&tf=cm"
+            target="_blank">
             <button className="px-5 py-3 bg-[#18857e] rounded-xl text-white font-medium shadow-md hover:bg-[#159c95] transition-all duration-300 hover:shadow-lg cursor-pointer">
               Contact Me
             </button>
