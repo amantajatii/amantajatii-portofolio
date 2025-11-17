@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="gap-8 md:gap-2 bg-white rounded-lg shadow-md px-8 md:px-12 py-8 md:py-12 mt-8">
+    <div className="gap-8 md:gap-2 bg-white rounded-lg shadow-md px-8 md:px-12 py-8 md:py-12 mt-4">
       <h1 className="text-4xl font-bold mb-4">About Diaz</h1>
       <p className="text-justify">
         I'm Diaz, an 19-year-old Information Technology student at Universitas

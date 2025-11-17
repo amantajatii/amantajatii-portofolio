@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <div className="bg-white px-8 py-4 w-full rounded-lg shadow-md flex justify-between items-center">
       <div className="">
-        <p>Amantajatii</p>
+        <p className="font-bold text-[#18857e]">Amantajatii</p>
       </div>
       <div className="hidden md:block">
         <ul className="flex flex-row gap-8 items-center">
@@ -21,10 +21,10 @@ const Navbar = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/">Journey</Link>
+            <Link href="/journey">Journey</Link>
           </li>
           <li>
-            <Link href="/">Projects</Link>
+            <Link href="/projects">Projects</Link>
           </li>
           <li>
             <button className="px-4 py-2 bg-[#18857e] rounded-lg text-white shadow-md hover:bg-[#159c95] transition">

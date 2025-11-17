@@ -3,7 +3,7 @@ import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-8 md:gap-12 bg-white rounded-lg shadow-md px-8 py-16 md:py-16 lg:py-24 xl:py-28 mt-8">
+    <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-8 md:gap-12 bg-white rounded-lg shadow-md px-8 py-16 md:py-16 lg:py-24 xl:py-28 mt-4">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col md:gap-2">
           <h1 className="text-4xl font-bold text-justify">
