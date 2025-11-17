@@ -27,9 +27,11 @@ const Navbar = () => {
             <Link href="/projects">Projects</Link>
           </li>
           <li>
-            <button className="px-4 py-2 bg-[#18857e] rounded-lg text-white shadow-md hover:bg-[#159c95] transition">
-              Contact me
-            </button>
+            <Link href="https://mail.google.com/mail/u/0/?fs=1&to=amantajati15@gmail.com&tf=cm">
+              <button className="px-4 py-2 bg-[#18857e] rounded-lg text-white shadow-md hover:bg-[#159c95] transition">
+                Contact me
+              </button>
+            </Link>
           </li>
         </ul>
       </div>
