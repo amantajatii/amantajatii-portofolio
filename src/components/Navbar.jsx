@@ -2,6 +2,19 @@
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { motion } from "motion/react";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: "easeOut",
+    },
+  },
+};
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
@@ -28,7 +41,11 @@ const Navbar = () => {
   }, [mobileNav]);
 
   return (
-    <div className="relative z-50 bg-white px-8 py-4 w-full rounded-xl shadow-md flex justify-between items-center">
+    <motion.div
+      className="relative z-50 bg-white px-8 py-4 w-full rounded-xl shadow-md flex justify-between items-center"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible">
       <div className="">
         <p className="font-bold text-[#18857e]">Amantajatii</p>
       </div>
@@ -95,7 +112,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

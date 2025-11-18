@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+import { motion } from "motion/react";
 import React from "react";
 
 const projects = [
@@ -44,9 +45,26 @@ const projects = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 const Projects = () => {
   return (
-    <section id="projects" className="mt-12 md:mt-16 mb-12">
+    <motion.section
+      id="projects"
+      className="mt-12 md:mt-16 mb-12"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible">
       <div className="flex justify-center">
         <h2 className="text-4xl md:text-5xl font-bold tracking-[0.35em] text-[#186d69] text-center">
           PROJECT
@@ -98,7 +116,7 @@ const Projects = () => {
           </article>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

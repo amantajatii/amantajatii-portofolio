@@ -1,8 +1,28 @@
+"use client";
 import React from "react";
+import { motion } from "motion/react";
+import { delay } from "motion";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+      delay: 0.2,
+    },
+  },
+};
 
 const About = () => {
   return (
-    <section className="mt-6">
+    <motion.section
+      className="mt-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible">
       <div className="bg-white rounded-3xl shadow-lg border border-teal-50 px-8 md:px-12 py-10 md:py-14">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
@@ -31,7 +51,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

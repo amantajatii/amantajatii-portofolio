@@ -1,10 +1,28 @@
+"use client";
+import { motion } from "motion/react";
 import Link from "next/link";
 import React from "react";
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 const Hero = () => {
   return (
-    <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-10 md:gap-16 bg-white rounded-3xl shadow-lg px-8 py-14 md:py-20 lg:py-24 mt-6">
+    <motion.div
+      className="flex flex-col-reverse md:flex-row justify-between items-center gap-10 md:gap-16 bg-white rounded-3xl shadow-lg px-8 py-14 md:py-20 lg:py-24 mt-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible">
       <div className="flex flex-col gap-6 w-full md:w-1/2">
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl md:text-5xl font-extrabold text-[#164b46] leading-tight">
@@ -79,7 +97,7 @@ const Hero = () => {
           className="w-64 md:w-72 h-64 md:h-72 rounded-2xl object-cover shadow-md hover:shadow-xl transition-all duration-500"
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
