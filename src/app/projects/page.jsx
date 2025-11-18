@@ -57,7 +57,7 @@ const Projects = () => {
         {projects.map((project) => (
           <article
             key={project.id}
-            className="flex flex-col justify-between bg-white rounded-3xl shadow-md border border-[#e3f3f1] overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            className="flex flex-col justify-between bg-white rounded-3xl shadow-md border border-[#e3f3f1] overflow-hidden md:hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300">
             <a
               href={`${project.link}`}
               key={project.id}
@@ -69,7 +69,7 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 

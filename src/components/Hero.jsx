@@ -65,8 +65,8 @@ const Hero = () => {
           <Link
             href="https://mail.google.com/mail/u/0/?fs=1&to=amantajati15@gmail.com&tf=cm"
             target="_blank">
-            <button className="px-5 py-3 bg-[#18857e] rounded-xl text-white font-medium shadow-md hover:bg-[#159c95] transition-all duration-300 hover:shadow-lg cursor-pointer">
-              Contact Me
+            <button className="px-4 py-2 border-2 border-[#159c95] rounded-lg text-[#159c95] hover:text-white shadow-md hover:bg-[#159c95] transition cursor-pointer">
+              Contact me
             </button>
           </Link>
         </div>
