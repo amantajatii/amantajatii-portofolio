@@ -35,21 +35,30 @@ export function PortfolioMotion() {
         const { reduceMotion, pointerFine } = context.conditions ?? {};
 
         if (reduceMotion) {
-          gsap.set("[data-animate], .reveal-block, .line-reveal, .capability-chip", {
-            autoAlpha: 1,
-            y: 0,
-            rotation: 0,
-            scale: 1,
-            clearProps: "transform,visibility,opacity",
-          });
+          gsap.set(
+            "[data-animate], .reveal-block, .line-reveal, .capability-chip",
+            {
+              autoAlpha: 1,
+              y: 0,
+              rotation: 0,
+              scale: 1,
+              clearProps: "transform,visibility,opacity",
+            },
+          );
+          gsap.set(".loader", { autoAlpha: 0, display: "none" });
           return;
         }
 
+        const loaderCount = document.querySelector<HTMLElement>(".loader-count");
+        const counter = { value: 0 };
         const intro = gsap.timeline({
           defaults: { duration: 0.9, ease: "power4.out" },
         });
 
-        gsap.set(".scroll-progress", { scaleX: 0, transformOrigin: "left center" });
+        gsap.set(".scroll-progress", {
+          scaleX: 0,
+          transformOrigin: "left center",
+        });
         gsap.to(".scroll-progress", {
           scaleX: 1,
           ease: "none",
@@ -62,6 +71,61 @@ export function PortfolioMotion() {
         });
 
         intro
+          .set("body", { overflow: "hidden" })
+          .from(".loader-mark", { y: 18, autoAlpha: 0, duration: 0.5 })
+          .from(
+            ".loader-words span",
+            {
+              yPercent: 110,
+              autoAlpha: 0,
+              filter: "blur(12px)",
+              clearProps: "filter",
+              stagger: 0.08,
+              duration: 0.75,
+            },
+            "-=0.22",
+          )
+          .to(
+            ".loader-bar",
+            { scaleX: 1, duration: 0.95, ease: "power3.inOut" },
+            "-=0.45",
+          )
+          .to(
+            counter,
+            {
+              value: 100,
+              duration: 0.95,
+              ease: "power3.inOut",
+              onUpdate: () => {
+                if (loaderCount) {
+                  loaderCount.textContent = String(
+                    Math.round(counter.value),
+                  ).padStart(2, "0");
+                }
+              },
+            },
+            "<",
+          )
+          .to(".loader-words span", {
+            yPercent: -110,
+            autoAlpha: 0,
+            stagger: 0.045,
+            duration: 0.55,
+            ease: "power3.in",
+          })
+          .to(
+            ".loader",
+            {
+              "--loader-radius": "100%",
+              yPercent: -100,
+              clipPath: "inset(0 0 0 0 round 0 0 100% 100%)",
+              duration: 1,
+              ease: "power4.inOut",
+            },
+            "-=0.2",
+          )
+          .set(".loader", { display: "none" })
+          .set("body", { overflow: "" })
           .from("[data-animate='nav']", { y: -42, autoAlpha: 0, scale: 0.985 })
           .from(
             "[data-animate='headline']",
@@ -289,19 +353,19 @@ export function PortfolioMotion() {
           });
         });
 
-        gsap.utils.toArray<HTMLElement>(".work-row").forEach((row) => {
+        gsap.utils.toArray<HTMLElement>(".work-card").forEach((card) => {
           gsap.fromTo(
-            row,
-            { x: -80, autoAlpha: 0.28, scale: 0.97 },
+            card,
+            { y: 110, autoAlpha: 0.2, scale: 0.94 },
             {
-              x: 0,
+              y: 0,
               autoAlpha: 1,
               scale: 1,
               ease: "none",
               scrollTrigger: {
-                trigger: row,
+                trigger: card,
                 start: "top 98%",
-                end: "top 42%",
+                end: "top 48%",
                 scrub: true,
               },
             },
@@ -331,13 +395,14 @@ export function PortfolioMotion() {
             passive: true,
           });
 
-          gsap.utils.toArray<HTMLElement>(".work-row").forEach((row) => {
-            const icon = row.querySelector("svg");
-            const name = row.querySelector(".work-name");
+          gsap.utils.toArray<HTMLElement>(".work-card").forEach((card) => {
+            const icon = card.querySelector("svg");
+            const name = card.querySelector(".work-name");
+            const shapes = card.querySelectorAll(".work-shape");
 
             const handleEnter = () => {
-              gsap.to(row, {
-                x: 14,
+              gsap.to(card, {
+                y: -8,
                 duration: 0.28,
                 ease: "power3.out",
                 overwrite: "auto",
@@ -351,29 +416,46 @@ export function PortfolioMotion() {
                 overwrite: "auto",
               });
               gsap.to(name, {
-                x: 8,
+                x: 10,
                 duration: 0.28,
                 ease: "power3.out",
+                overwrite: "auto",
+              });
+              gsap.to(shapes, {
+                scale: 2.55,
+                duration: 0.95,
+                ease: "power3.inOut",
+                stagger: 0.03,
                 overwrite: "auto",
               });
             };
 
             const handleLeave = () => {
-              gsap.to([row, icon, name], {
+              gsap.to([card, icon, name], {
                 x: 0,
                 y: 0,
                 rotation: 0,
+                scale: 1,
                 duration: 0.36,
                 ease: "elastic.out(1, 0.55)",
                 overwrite: "auto",
               });
+              gsap.to(shapes, {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                duration: 0.85,
+                ease: "power3.out",
+                overwrite: "auto",
+              });
             };
 
-            row.addEventListener("pointerenter", handleEnter);
-            row.addEventListener("pointerleave", handleLeave);
+            card.addEventListener("pointerenter", handleEnter);
+            card.addEventListener("pointerleave", handleLeave);
             cleanupHoverHandlers.push(() => {
-              row.removeEventListener("pointerenter", handleEnter);
-              row.removeEventListener("pointerleave", handleLeave);
+              card.removeEventListener("pointerenter", handleEnter);
+              card.removeEventListener("pointerleave", handleLeave);
             });
           });
 
