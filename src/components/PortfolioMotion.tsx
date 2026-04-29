@@ -140,11 +140,6 @@ export function PortfolioMotion() {
           "--loader-radius": "0%",
           clipPath: "inset(0 0 0 0 round 0 0 0% 0%)",
         });
-        gsap.set(".loader-bar", {
-          scaleX: 0,
-          transformOrigin: "left center",
-        });
-
         gsap.set(".scroll-progress", {
           scaleX: 0,
           transformOrigin: "left center",
@@ -178,11 +173,6 @@ export function PortfolioMotion() {
               duration: 0.75,
             },
             "-=0.22",
-          )
-          .to(
-            ".loader-bar",
-            { scaleX: 1, duration: 0.95, ease: "power3.inOut" },
-            "-=0.45",
           )
           .to(
             counter,

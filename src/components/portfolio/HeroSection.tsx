@@ -1,8 +1,11 @@
 import { ArrowUpRight } from "lucide-react";
+import { SiteHeader } from "./SiteHeader";
 
 export function HeroSection() {
   return (
     <section className="question-hero" id="home">
+      <SiteHeader />
+
       <div className="hero-left" data-depth="slow">
         <h1 data-animate="headline">
           Hi, I&apos;m

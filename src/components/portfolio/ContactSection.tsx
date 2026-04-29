@@ -3,15 +3,8 @@ import { ArrowUpRight, FileText, Mail } from "lucide-react";
 export function ContactSection() {
   return (
     <section className="contact-band reveal-block" id="contact">
-      <div className="footer-top">
-        <div className="footer-actions">
-          <a href="/cv-diaz-amantajati.pdf" target="_blank" rel="noreferrer">
-            View CV
-          </a>
-        </div>
-      </div>
-
       <span className="footer-orb" aria-hidden="true" />
+      <span className="footer-shape-purple" aria-hidden="true" />
 
       <h2 className="line-reveal contact-title">
         Let&apos;s build the next useful thing, beautifully.
@@ -19,11 +12,11 @@ export function ContactSection() {
 
       <div className="contact-links">
         <a href="mailto:amantajati15@gmail.com">
-          <Mail aria-hidden="true" size={18} />
+          <Mail aria-hidden="true" size={16} />
           amantajati15@gmail.com
         </a>
         <a href="/cv-diaz-amantajati.pdf" target="_blank" rel="noreferrer">
-          <FileText aria-hidden="true" size={18} />
+          <FileText aria-hidden="true" size={16} />
           CV
         </a>
         <a
@@ -42,9 +35,12 @@ export function ContactSection() {
         </a>
       </div>
 
-      <p className="footer-credit">
-        Shaped by Diaz <ArrowUpRight aria-hidden="true" size={18} />
-      </p>
+      <div className="footer-bottom">
+        <div className="footer-logo">N</div>
+        <p className="footer-credit">
+          Shaped by Diaz <ArrowUpRight aria-hidden="true" size={18} />
+        </p>
+      </div>
     </section>
   );
 }

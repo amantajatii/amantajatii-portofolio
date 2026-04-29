@@ -6,7 +6,6 @@ import { HeroSection } from "@/components/portfolio/HeroSection";
 import { Loader } from "@/components/portfolio/Loader";
 import { PartnershipSection } from "@/components/portfolio/PartnershipSection";
 import { ProfileSection } from "@/components/portfolio/ProfileSection";
-import { SiteHeader } from "@/components/portfolio/SiteHeader";
 import { WorkSection } from "@/components/portfolio/WorkSection";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
       <div className="scroll-progress" aria-hidden="true" />
       <Loader />
       <PortfolioMotion />
-      <SiteHeader />
       <HeroSection />
       <ApproachSection />
       <PartnershipSection />
