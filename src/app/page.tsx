@@ -73,6 +73,7 @@ export default function Home() {
       <a className="skip-link" href="#main-content">
         Skip To Content
       </a>
+      <div className="scroll-progress" aria-hidden="true" />
       <PortfolioMotion />
 
       <header className="onda-header" data-animate="nav">
@@ -93,13 +94,13 @@ export default function Home() {
       <section className="question-hero" id="home">
         <div className="hero-left" data-depth="slow">
           <h1 data-animate="headline">
-            Complex
+            Hi, I&apos;m
             <br />
-            builds?
+            Diaz.
           </h1>
           <p data-animate="fade">
-            I turn Web3, AI, and payment ideas into fast interfaces that feel
-            clear from the first click.
+            A frontend engineer and Information Technology student at UGM,
+            building polished interfaces for Web3, AI, and payment products.
           </p>
         </div>
 
@@ -111,9 +112,9 @@ export default function Home() {
 
         <div className="hero-right" data-animate="fade" data-depth="fast">
           <h2>
-            I make
+            I build
             <br />
-            it work.
+            web products.
           </h2>
           <a href="mailto:amantajati15@gmail.com">
             Start a conversation <ArrowUpRight aria-hidden="true" size={18} />
@@ -196,7 +197,7 @@ export default function Home() {
 
       <section className="contact-band reveal-block" id="contact">
         <Sparkles aria-hidden="true" size={28} />
-          <h2 className="line-reveal">
+          <h2 className="line-reveal contact-title">
             Let&apos;s build the next useful thing, beautifully.
           </h2>
         <div className="contact-links">

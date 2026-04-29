@@ -10,8 +10,17 @@ export function PortfolioMotion() {
   useEffect(() => {
     const mm = gsap.matchMedia();
     const header = document.querySelector<HTMLElement>(".onda-header");
+    const navTween = header
+      ? gsap.to(header, {
+          "--nav-progress": 1,
+          duration: 0.55,
+          ease: "power3.out",
+          paused: true,
+          overwrite: "auto",
+        })
+      : null;
     const updateHeader = () => {
-      header?.classList.toggle("is-scrolled", window.scrollY > 24);
+      navTween?.progress(Math.min(window.scrollY / 96, 1));
     };
 
     updateHeader();
@@ -38,6 +47,18 @@ export function PortfolioMotion() {
 
         const intro = gsap.timeline({
           defaults: { duration: 0.9, ease: "power4.out" },
+        });
+
+        gsap.set(".scroll-progress", { scaleX: 0, transformOrigin: "left center" });
+        gsap.to(".scroll-progress", {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.2,
+          },
         });
 
         intro
@@ -97,49 +118,194 @@ export function PortfolioMotion() {
           },
         });
 
-        gsap.utils.toArray<HTMLElement>(".reveal-block").forEach((element) => {
-          gsap.from(element, {
-            y: 60,
-            autoAlpha: 0,
-            duration: 0.95,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 86%",
-              once: true,
-            },
-          });
-        });
-
-        gsap.utils.toArray<HTMLElement>(".line-reveal").forEach((element) => {
-          gsap.from(element, {
-            y: 58,
-            autoAlpha: 0,
-            filter: "blur(12px)",
-            duration: 1,
-            ease: "power4.out",
-            clearProps: "filter",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 88%",
-              once: true,
-            },
-          });
-        });
-
-        gsap.from(".capability-chip", {
-          y: 42,
-          autoAlpha: 0,
-          scale: 0.88,
-          rotation: (index) => (index % 2 === 0 ? -2 : 2),
-          duration: 0.85,
-          ease: "back.out(1.45)",
-          stagger: { each: 0.055, from: "random" },
+        gsap.to(".dot-line", {
+          xPercent: -7,
+          ease: "none",
           scrollTrigger: {
-            trigger: ".capability-marquee",
-            start: "top 72%",
+            trigger: ".question-hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.utils.toArray<HTMLElement>("section").forEach((section) => {
+          gsap.fromTo(
+            section,
+            { "--section-wash": 0 },
+            {
+              "--section-wash": 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 75%",
+                end: "bottom 25%",
+                scrub: true,
+              },
+            },
+          );
+        });
+
+        gsap.utils.toArray<HTMLElement>(".reveal-block").forEach((element) => {
+          gsap.fromTo(element, {
+            y: 90,
+            autoAlpha: 0.25,
+            scale: 0.985,
+          }, {
+            y: 0,
+            autoAlpha: 1,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 96%",
+              end: "top 56%",
+              scrub: true,
+            },
+          });
+        });
+
+        gsap.utils
+          .toArray<HTMLElement>(".line-reveal:not(.contact-title)")
+          .forEach((element) => {
+          gsap.fromTo(element, {
+            y: 110,
+            autoAlpha: 0.18,
+            scale: 0.96,
+            filter: "blur(14px)",
+          }, {
+            y: 0,
+            autoAlpha: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 100%",
+              end: "top 45%",
+              scrub: true,
+            },
+          });
+        });
+
+        gsap.fromTo(".contact-title", {
+          y: 60,
+          autoAlpha: 0,
+          scale: 0.985,
+          filter: "blur(10px)",
+        }, {
+          y: 0,
+          autoAlpha: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.85,
+          ease: "power4.out",
+          clearProps: "filter",
+          scrollTrigger: {
+            trigger: ".contact-band",
+            start: "top 74%",
             once: true,
           },
+        });
+
+        gsap.fromTo(".contact-links a", {
+          y: 26,
+          autoAlpha: 0,
+          scale: 0.92,
+        }, {
+          y: 0,
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.55,
+          ease: "back.out(1.45)",
+          stagger: 0.06,
+          scrollTrigger: {
+            trigger: ".contact-band",
+            start: "top 68%",
+            once: true,
+          },
+        });
+
+        gsap.utils.toArray<HTMLElement>(".make-stack .line-reveal").forEach((line, index) => {
+          gsap.fromTo(line, {
+            xPercent: index % 2 === 0 ? -8 : 8,
+          }, {
+            xPercent: index % 2 === 0 ? 7 : -7,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".make-section",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+
+        gsap.fromTo(".partnership-section p", {
+          y: 60,
+          autoAlpha: 0.2,
+        }, {
+          y: -24,
+          autoAlpha: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".partnership-section",
+            start: "top 90%",
+            end: "bottom 35%",
+            scrub: true,
+          },
+        });
+
+        gsap.fromTo(".capability-chip", {
+          y: 90,
+          autoAlpha: 0.15,
+          scale: 0.82,
+          rotation: (index) => (index % 2 === 0 ? -7 : 7),
+        }, {
+          y: 0,
+          autoAlpha: 1,
+          scale: 1,
+          rotation: 0,
+          ease: "none",
+          stagger: { each: 0.02, from: "center" },
+          scrollTrigger: {
+            trigger: ".capability-marquee",
+            start: "top 95%",
+            end: "center 45%",
+            scrub: true,
+          },
+        });
+
+        gsap.utils.toArray<HTMLElement>(".capability-chip").forEach((chip, index) => {
+          gsap.to(chip, {
+            y: index % 2 === 0 ? -34 : 28,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".capability-marquee",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+
+        gsap.utils.toArray<HTMLElement>(".work-row").forEach((row) => {
+          gsap.fromTo(
+            row,
+            { x: -80, autoAlpha: 0.28, scale: 0.97 },
+            {
+              x: 0,
+              autoAlpha: 1,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: row,
+                start: "top 98%",
+                end: "top 42%",
+                scrub: true,
+              },
+            },
+          );
         });
 
         if (pointerFine) {
