@@ -46,6 +46,7 @@ export function PortfolioMotion() {
             },
           );
           gsap.set(".loader", { autoAlpha: 0, display: "none" });
+          gsap.set(".contact-band", { "--footer-radius": "0%" });
           return;
         }
 
@@ -210,6 +211,27 @@ export function PortfolioMotion() {
           );
         });
 
+        gsap.utils
+          .toArray<HTMLElement>(".question-hero, .capability-marquee")
+          .forEach((panel) => {
+            const isHero = panel.classList.contains("question-hero");
+
+            gsap.fromTo(
+              panel,
+              { "--panel-progress": 0 },
+              {
+                "--panel-progress": 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: panel,
+                  start: isHero ? "top top" : "top 82%",
+                  end: isHero ? "35% top" : "top 28%",
+                  scrub: true,
+                },
+              },
+            );
+          });
+
         gsap.utils.toArray<HTMLElement>(".reveal-block").forEach((element) => {
           gsap.fromTo(element, {
             y: 90,
@@ -269,6 +291,19 @@ export function PortfolioMotion() {
             trigger: ".contact-band",
             start: "top 74%",
             once: true,
+          },
+        });
+
+        gsap.fromTo(".contact-band", {
+          "--footer-radius": "100%",
+        }, {
+          "--footer-radius": "0%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".contact-band",
+            start: "top 92%",
+            end: "top 34%",
+            scrub: true,
           },
         });
 
