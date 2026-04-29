@@ -10,9 +10,6 @@ export function SiteHeader() {
         <a href="#profile">Stack</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a className="nav-cta" href="mailto:amantajati15@gmail.com">
-        Let&apos;s Talk
-      </a>
     </header>
   );
 }

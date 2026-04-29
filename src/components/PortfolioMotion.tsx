@@ -1,14 +1,81 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const loaderPalette = [
+  "#ff7f6e",
+  "#bca7ef",
+  "#00bfa6",
+  "#f3c548",
+  "#ff91c7",
+  "#79b8ff",
+  "#d7ef72",
+];
+
+const loaderColorStorageKey = "amantajatii-loader-color";
+
+function pickLoaderColor() {
+  const fallbackColor = loaderPalette[0];
+
+  try {
+    const previousColor = window.localStorage.getItem(loaderColorStorageKey);
+    const nextPalette = loaderPalette.filter((color) => color !== previousColor);
+    const nextColor =
+      nextPalette[Math.floor(Math.random() * nextPalette.length)] ??
+      fallbackColor;
+
+    window.localStorage.setItem(loaderColorStorageKey, nextColor);
+    return nextColor;
+  } catch {
+    return loaderPalette[Math.floor(Math.random() * loaderPalette.length)] ?? fallbackColor;
+  }
+}
+
+function pickDifferentLoaderColor(colorToAvoid: string) {
+  const nextPalette = loaderPalette.filter((color) => color !== colorToAvoid);
+
+  return (
+    nextPalette[Math.floor(Math.random() * nextPalette.length)] ??
+    loaderPalette[0]
+  );
+}
+
+function createLoaderShuffle(finalColor: string) {
+  return Array.from({ length: 6 }, (_, index) =>
+    index === 5 ? finalColor : pickDifferentLoaderColor(finalColor),
+  );
+}
+
 export function PortfolioMotion() {
+  const finalLoaderColor = useRef(loaderPalette[0]);
+
+  useLayoutEffect(() => {
+    const loader = document.querySelector<HTMLElement>(".loader");
+    const nextColor = pickLoaderColor();
+
+    finalLoaderColor.current = nextColor;
+
+    if (loader) {
+      loader.style.setProperty("--loader-bg", pickDifferentLoaderColor(nextColor));
+    }
+  }, []);
+
   useEffect(() => {
     const mm = gsap.matchMedia();
+    const hideLoader = () => {
+      gsap.killTweensOf(".loader");
+      gsap.set(".loader", {
+        autoAlpha: 0,
+        display: "none",
+        pointerEvents: "none",
+      });
+      gsap.set("body", { overflow: "" });
+    };
+    const loaderFailSafe = window.setTimeout(hideLoader, 4200);
     const header = document.querySelector<HTMLElement>(".onda-header");
     const navTween = header
       ? gsap.to(header, {
@@ -35,6 +102,7 @@ export function PortfolioMotion() {
         const { reduceMotion, pointerFine } = context.conditions ?? {};
 
         if (reduceMotion) {
+          window.clearTimeout(loaderFailSafe);
           gsap.set(
             "[data-animate], .reveal-block, .line-reveal, .capability-chip",
             {
@@ -51,9 +119,30 @@ export function PortfolioMotion() {
         }
 
         const loaderCount = document.querySelector<HTMLElement>(".loader-count");
+        const loaderShuffle = createLoaderShuffle(finalLoaderColor.current);
         const counter = { value: 0 };
         const intro = gsap.timeline({
           defaults: { duration: 0.9, ease: "power4.out" },
+          onComplete: () => {
+            window.clearTimeout(loaderFailSafe);
+          },
+        });
+
+        if (loaderCount) {
+          loaderCount.textContent = "00";
+        }
+
+        gsap.set(".loader", {
+          autoAlpha: 1,
+          display: "grid",
+          pointerEvents: "auto",
+          yPercent: 0,
+          "--loader-radius": "0%",
+          clipPath: "inset(0 0 0 0 round 0 0 0% 0%)",
+        });
+        gsap.set(".loader-bar", {
+          scaleX: 0,
+          transformOrigin: "left center",
         });
 
         gsap.set(".scroll-progress", {
@@ -71,8 +160,12 @@ export function PortfolioMotion() {
           },
         });
 
+        intro.set("body", { overflow: "hidden" });
+        loaderShuffle.forEach((color, index) => {
+          intro.set(".loader", { "--loader-bg": color }, index * 0.1);
+        });
+
         intro
-          .set("body", { overflow: "hidden" })
           .from(".loader-mark", { y: 18, autoAlpha: 0, duration: 0.5 })
           .from(
             ".loader-words span",
@@ -302,7 +395,22 @@ export function PortfolioMotion() {
           scrollTrigger: {
             trigger: ".contact-band",
             start: "top 92%",
-            end: "top 34%",
+            end: "top 18%",
+            scrub: true,
+          },
+        });
+
+        gsap.fromTo(".footer-orb", {
+          y: 80,
+          scale: 0.86,
+        }, {
+          y: -32,
+          scale: 1.06,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".contact-band",
+            start: "top bottom",
+            end: "center center",
             scrub: true,
           },
         });
@@ -503,6 +611,7 @@ export function PortfolioMotion() {
     );
 
     return () => {
+      window.clearTimeout(loaderFailSafe);
       window.removeEventListener("scroll", updateHeader);
       mm.revert();
     };

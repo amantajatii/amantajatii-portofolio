@@ -4,8 +4,8 @@ export function CapabilitiesSection() {
   return (
     <section className="capability-marquee" aria-label="Capabilities">
       <div className="marquee-track">
-        {[...capabilities, ...capabilities].map((item, index) => (
-          <span className="capability-chip" key={`${item}-${index}`}>
+        {capabilities.map((item, index) => (
+          <span className={`capability-chip chip-${index + 1}`} key={item}>
             {item}
           </span>
         ))}

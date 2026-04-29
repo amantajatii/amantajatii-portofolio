@@ -23,7 +23,7 @@ export const work = [
     label: "1st Place - Blitz Monad Jogja Hackathon",
     summary:
       "Monad arcade gameplay with EIP-712 settlement, Trust Passport verification, Foundry contracts, and backend-authoritative result flow.",
-    href: "https://lnkd.in/gaWrQbkK",
+    href: "https://pass-chick.vercel.app",
   },
   {
     name: "RecruitPro",
