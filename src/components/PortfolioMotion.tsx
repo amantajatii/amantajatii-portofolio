@@ -66,7 +66,9 @@ export function PortfolioMotion() {
 
   useEffect(() => {
     const mm = gsap.matchMedia();
+    let introDone = false;
     const hideLoader = () => {
+      if (introDone) return;
       gsap.killTweensOf(".loader");
       gsap.set(".loader", {
         autoAlpha: 0,
@@ -124,6 +126,7 @@ export function PortfolioMotion() {
         const intro = gsap.timeline({
           defaults: { duration: 0.9, ease: "power4.out" },
           onComplete: () => {
+            introDone = true;
             window.clearTimeout(loaderFailSafe);
           },
         });
@@ -136,10 +139,10 @@ export function PortfolioMotion() {
           autoAlpha: 1,
           display: "grid",
           pointerEvents: "auto",
-          yPercent: 0,
-          "--loader-radius": "0%",
-          clipPath: "inset(0 0 0 0 round 0 0 0% 0%)",
+          clearProps: "transform",
+          borderRadius: "0 0 0% 0%",
         });
+        document.querySelector(".loader")?.classList.add("is-animating");
         gsap.set(".scroll-progress", {
           scaleX: 0,
           transformOrigin: "left center",
@@ -197,18 +200,20 @@ export function PortfolioMotion() {
             duration: 0.55,
             ease: "power3.in",
           })
-          .to(
-            ".loader",
-            {
-              "--loader-radius": "100%",
-              yPercent: -100,
-              clipPath: "inset(0 0 0 0 round 0 0 100% 100%)",
-              duration: 1,
-              ease: "power4.inOut",
-            },
-            "-=0.2",
-          )
-          .set(".loader", { display: "none" })
+          .to(".loader", {
+            y: "-110svh",
+            borderBottomLeftRadius: "100%",
+            borderBottomRightRadius: "100%",
+            duration: 1.25,
+            ease: "power4.inOut",
+            force3D: true,
+          }, "-=0.12")
+          .set(".loader", { display: "none", clearProps: "transform,borderRadius" })
+          .call(() => {
+            introDone = true;
+            const loader = document.querySelector(".loader");
+            loader?.classList.remove("is-animating");
+          })
           .set("body", { overflow: "" })
           .from("[data-animate='nav']", { y: -42, autoAlpha: 0, scale: 0.985 })
           .from(

@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "#work", label: "Work" },
   { href: "#approach", label: "About" },
+  { href: "#work", label: "Work" },
   { href: "#profile", label: "Stack" },
   { href: "#contact", label: "Contact" },
 ];
@@ -77,7 +77,7 @@ export function SiteHeader() {
     <>
       <header className="onda-header" data-animate="nav">
         <a className="wordmark" href="#home" aria-label="Diaz portfolio home">
-          diaz.
+          amantajatii
         </a>
 
         <div className="nav-right-cluster">
@@ -97,7 +97,7 @@ export function SiteHeader() {
 
           {/* Email — desktop only */}
           <a className="nav-email" href="mailto:amantajati15@gmail.com">
-            Hire Me
+            Let&apos;s Talk
           </a>
 
           {/* Hamburger — mobile only */}
