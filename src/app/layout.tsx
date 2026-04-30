@@ -21,6 +21,21 @@ export const metadata: Metadata = {
   },
   description:
     "Portfolio of Diaz Amantajati Susilo, a frontend engineer and Web3 builder focused on scalable web applications, polished UX, and product-ready interfaces.",
+  icons: {
+    icon: [
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/icon.svg",
+    apple: [
+      {
+        url: "/apple-icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
   openGraph: {
     title: "Diaz Amantajati Susilo — Frontend Engineer",
     description:

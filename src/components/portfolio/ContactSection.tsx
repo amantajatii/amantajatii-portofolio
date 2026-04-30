@@ -22,21 +22,18 @@ export function ContactSection() {
         <a
           href="https://github.com/amantajatii"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           GitHub
         </a>
         <a
           href="https://www.linkedin.com/in/diazamantajatisusilo/"
           target="_blank"
-          rel="noreferrer"
-        >
+          rel="noreferrer">
           LinkedIn
         </a>
       </div>
 
       <div className="footer-bottom">
-        <div className="footer-logo">N</div>
         <p className="footer-credit">
           Shaped by Diaz <ArrowUpRight aria-hidden="true" size={18} />
         </p>

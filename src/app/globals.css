@@ -210,14 +210,7 @@ button:focus-visible {
   background: #fffdf8;
   transform: scaleX(0);
   transform-origin: left center;
-  animation: loader-progress 2.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   will-change: transform;
-}
-
-@keyframes loader-progress {
-  to {
-    transform: scaleX(1);
-  }
 }
 
 main {
@@ -230,7 +223,7 @@ main {
 
 .onda-header {
   position: fixed;
-  top: 0;
+  top: 50px;
   right: 0;
   left: 0;
   transform: none;
@@ -239,8 +232,8 @@ main {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-height: 144px;
-  padding: clamp(28px, 3.4vw, 44px) clamp(26px, 3.6vw, 58px);
+  min-height: 92px;
+  padding: clamp(16px, 1.5vw, 22px) clamp(26px, 3.6vw, 58px);
   border: 0;
   border-radius: 0;
   background: var(--dark);
@@ -319,15 +312,17 @@ main {
   color: rgba(251, 244, 238, 0.85);
   font-size: clamp(1.1rem, 1.4vw, 1.45rem);
   font-weight: 520;
-  line-height: 44px;
+  line-height: 36px;
   text-decoration: none;
-  transition: background-color 180ms, color 180ms;
+  transition:
+    background-color 180ms,
+    color 180ms;
 }
 
 .desktop-nav a::after {
   content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -5px;
   left: 50%;
   width: 12px;
   height: 12px;
@@ -335,7 +330,9 @@ main {
   background: var(--coral);
   opacity: 0;
   transform: translate(-50%, 10px) scale(0);
-  transition: opacity 200ms, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 200ms,
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .desktop-nav a:hover {
@@ -348,13 +345,13 @@ main {
 
 .desktop-nav a.nav-active::after {
   opacity: 1;
-  transform: translate(-50%, 8px) scale(1);
+  transform: translate(-50%, 6px) scale(1);
 }
 
 .nav-email {
   justify-content: center;
-  height: 72px;
-  padding: 0 clamp(32px, 3vw, 54px);
+  height: 58px;
+  padding: 0 clamp(28px, 2.7vw, 46px);
   border-radius: 999px;
   background: var(--pink);
   color: var(--dark);
@@ -363,7 +360,9 @@ main {
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color 180ms, transform 180ms;
+  transition:
+    background-color 180ms,
+    transform 180ms;
 }
 
 .nav-email:hover {
@@ -400,7 +399,9 @@ main {
   border-radius: 999px;
   background: var(--cream);
   transform-origin: center;
-  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms;
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms;
 }
 
 .nav-hamburger.is-open span:first-child {
@@ -433,7 +434,8 @@ main {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0s 320ms;
 }
 
@@ -441,7 +443,8 @@ main {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0s 0s;
 }
 
@@ -468,8 +471,11 @@ main {
   letter-spacing: -0.02em;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 300ms, transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 180ms, color 180ms;
+  transition:
+    opacity 300ms,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 180ms,
+    color 180ms;
 }
 
 .mobile-drawer.is-open nav a {
@@ -477,10 +483,18 @@ main {
   transform: translateY(0);
 }
 
-.mobile-drawer.is-open nav a:nth-child(1) { transition-delay: 60ms; }
-.mobile-drawer.is-open nav a:nth-child(2) { transition-delay: 95ms; }
-.mobile-drawer.is-open nav a:nth-child(3) { transition-delay: 130ms; }
-.mobile-drawer.is-open nav a:nth-child(4) { transition-delay: 165ms; }
+.mobile-drawer.is-open nav a:nth-child(1) {
+  transition-delay: 60ms;
+}
+.mobile-drawer.is-open nav a:nth-child(2) {
+  transition-delay: 95ms;
+}
+.mobile-drawer.is-open nav a:nth-child(3) {
+  transition-delay: 130ms;
+}
+.mobile-drawer.is-open nav a:nth-child(4) {
+  transition-delay: 165ms;
+}
 
 .mobile-drawer nav a:hover,
 .mobile-drawer nav a.nav-active {
@@ -505,8 +519,11 @@ main {
   letter-spacing: -0.01em;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 300ms 180ms, transform 300ms 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    color 180ms, border-color 180ms;
+  transition:
+    opacity 300ms 180ms,
+    transform 300ms 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 180ms,
+    border-color 180ms;
 }
 
 .mobile-drawer.is-open .drawer-email {
@@ -518,7 +535,6 @@ main {
   color: var(--cream);
   border-color: rgba(251, 244, 238, 0.36);
 }
-
 
 .question-hero {
   position: relative;
@@ -533,7 +549,7 @@ main {
   grid-template-rows: auto 1fr auto;
   gap: clamp(24px, 4vw, 60px);
   align-items: end;
-  padding: clamp(24px, 3vw, 48px) clamp(30px, 4vw, 72px) 70px;
+  padding: clamp(132px, 12vw, 176px) clamp(30px, 4vw, 72px) 70px;
   border-radius: calc(clamp(0px, 3.8vw, 54px) * var(--panel-progress));
   background: var(--dark);
   color: var(--cream);
@@ -567,6 +583,10 @@ main {
 /* Navbar spans full width inside hero */
 .question-hero > .onda-header,
 .question-hero > header {
+  position: absolute;
+  top: clamp(10px, 1.2vw, 18px);
+  right: 0;
+  left: 0;
   grid-column: 1 / -1;
   align-self: start;
 }
@@ -627,6 +647,10 @@ main {
 
 .hero-right h2 {
   text-align: right;
+}
+
+.mobile-break {
+  display: none;
 }
 
 .hero-right a,
@@ -1191,11 +1215,18 @@ main {
   width: clamp(36px, 4vw, 48px);
   height: clamp(36px, 4vw, 48px);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--cream);
-  font-family: var(--font-geist-sans), sans-serif;
-  font-weight: 700;
-  font-size: clamp(1rem, 1.2vw, 1.3rem);
+  background: var(--coral);
+  box-shadow: 0 14px 36px rgba(241, 120, 94, 0.28);
+}
+
+.footer-logo::before {
+  width: 0;
+  height: 0;
+  border-right: 11px solid transparent;
+  border-bottom: 19px solid var(--cream);
+  border-left: 11px solid transparent;
+  content: "";
+  transform: translateY(-1px);
 }
 
 .footer-credit {
@@ -1210,8 +1241,8 @@ main {
 
 @media (max-width: 960px) {
   .onda-header {
-    min-height: 112px;
-    padding: 24px;
+    min-height: 78px;
+    padding: max(12px, env(safe-area-inset-top)) 20px 12px;
   }
 
   .desktop-nav {
@@ -1220,7 +1251,7 @@ main {
 
   .question-hero {
     grid-template-columns: 1fr;
-    padding-top: 164px;
+    padding-top: 108px;
   }
 
   .hero-right {
@@ -1238,7 +1269,6 @@ main {
   .profile-section {
     grid-template-columns: 1fr;
   }
-
 
   .contact-band {
     --footer-radius: 0% !important;
@@ -1295,10 +1325,9 @@ main {
 
 @media (max-width: 768px) {
   .onda-header {
-    top: 0;
     width: 100%;
-    min-height: 86px;
-    padding: 18px 20px;
+    min-height: 66px;
+    padding: max(10px, env(safe-area-inset-top)) 18px 10px;
   }
 
   .nav-right-cluster {
@@ -1331,24 +1360,70 @@ main {
   }
 
   .question-hero {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(30px, 8vw, 46px);
+    padding-top: 104px;
     padding-right: 18px;
+    padding-bottom: 72px;
     padding-left: 18px;
     margin-inline: calc(10px * var(--panel-progress));
     border-radius: calc(28px * var(--panel-progress));
+    overflow: hidden;
   }
 
-  .hero-left h1,
+  .hero-left {
+    align-self: start;
+    width: 100%;
+  }
+
+  .hero-left h1 {
+    font-size: clamp(4rem, 16vw, 5.2rem);
+    line-height: 0.84;
+  }
+
   .hero-right h2 {
-    font-size: clamp(4.1rem, 19vw, 6.4rem);
+    font-size: clamp(3.65rem, 15.4vw, 4.9rem);
+    line-height: 0.88;
+    text-align: left;
+  }
+
+  .hero-left p {
+    max-width: 100%;
+    margin-top: 28px;
+    font-size: clamp(0.98rem, 4vw, 1.12rem);
+    line-height: 1.42;
   }
 
   .dot-line {
-    gap: 10px;
+    align-self: center;
+    justify-content: space-between;
+    gap: 7px;
+    width: 100%;
+    height: 30px;
+    margin: 12px 0 0;
+    overflow: visible;
   }
 
   .dot-line span {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .dot-line span:nth-child(n + 13) {
+    display: none;
+  }
+
+  .hero-right {
+    width: 100%;
+    gap: 22px;
+  }
+
+  .mobile-break {
+    display: block;
   }
 
   .make-section,
@@ -1405,7 +1480,46 @@ main {
 
   .capability-marquee {
     margin-inline: calc(10px * var(--panel-progress));
+    padding: 76px 24px 84px;
     border-radius: calc(28px * var(--panel-progress));
+  }
+
+  .capability-marquee::before {
+    margin-bottom: 34px;
+    font-size: clamp(2rem, 9vw, 2.7rem);
+    line-height: 1;
+  }
+
+  .marquee-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 14px;
+    max-width: 100%;
+  }
+
+  .marquee-track span {
+    min-height: 46px;
+    max-width: 100%;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: clamp(1.45rem, 7.2vw, 2rem);
+    line-height: 1;
+    text-align: center;
+    white-space: normal;
+    transform: none !important;
+  }
+
+  .marquee-track span:nth-child(odd) {
+    justify-self: start;
+  }
+
+  .marquee-track span:nth-child(even) {
+    justify-self: end;
+  }
+
+  .marquee-track span:nth-child(3n) {
+    justify-self: center;
   }
 
   .work-name {

@@ -66,18 +66,32 @@ export function PortfolioMotion() {
 
   useEffect(() => {
     const mm = gsap.matchMedia();
-    let introDone = false;
+    let loaderDone = false;
     const hideLoader = () => {
-      if (introDone) return;
+      if (loaderDone) return;
+      loaderDone = true;
       gsap.killTweensOf(".loader");
-      gsap.set(".loader", {
-        autoAlpha: 0,
-        display: "none",
-        pointerEvents: "none",
+      gsap.to(".loader", {
+        y: () => -(window.innerHeight + 120),
+        borderBottomLeftRadius: "100%",
+        borderBottomRightRadius: "100%",
+        duration: 0.72,
+        ease: "power3.inOut",
+        overwrite: true,
+        onComplete: () => {
+          gsap.set(".loader", {
+            autoAlpha: 0,
+            display: "none",
+            pointerEvents: "none",
+            clearProps: "transform,borderRadius",
+          });
+          document.querySelector(".loader")?.classList.remove("is-animating");
+          ScrollTrigger.refresh();
+        },
       });
       gsap.set("body", { overflow: "" });
     };
-    const loaderFailSafe = window.setTimeout(hideLoader, 4200);
+    const loaderFailSafe = window.setTimeout(hideLoader, 8000);
     const header = document.querySelector<HTMLElement>(".onda-header");
     const navTween = header
       ? gsap.to(header, {
@@ -97,14 +111,17 @@ export function PortfolioMotion() {
 
     mm.add(
       {
+        all: "(min-width: 0px)",
+        isMobile: "(max-width: 768px)",
         reduceMotion: "(prefers-reduced-motion: reduce)",
         pointerFine: "(pointer: fine)",
       },
       (context) => {
-        const { reduceMotion, pointerFine } = context.conditions ?? {};
+        const { isMobile, reduceMotion, pointerFine } = context.conditions ?? {};
 
         if (reduceMotion) {
           window.clearTimeout(loaderFailSafe);
+          loaderDone = true;
           gsap.set(
             "[data-animate], .reveal-block, .line-reveal, .capability-chip",
             {
@@ -115,7 +132,34 @@ export function PortfolioMotion() {
               clearProps: "transform,visibility,opacity",
             },
           );
-          gsap.set(".loader", { autoAlpha: 0, display: "none" });
+          gsap.set(".loader", {
+            autoAlpha: 1,
+            display: "grid",
+            pointerEvents: "auto",
+          });
+          gsap.to(".loader-bar", {
+            scaleX: 1,
+            duration: 0.45,
+            ease: "power2.out",
+          });
+          gsap.to(".loader", {
+            y: () => -(window.innerHeight + 120),
+            borderBottomLeftRadius: "100%",
+            borderBottomRightRadius: "100%",
+            duration: 0.5,
+            delay: 0.48,
+            ease: "power2.inOut",
+            onComplete: () => {
+              gsap.set(".loader", {
+                autoAlpha: 0,
+                display: "none",
+                pointerEvents: "none",
+                clearProps: "transform,borderRadius",
+              });
+              gsap.set("body", { overflow: "" });
+              ScrollTrigger.refresh();
+            },
+          });
           gsap.set(".contact-band", { "--footer-radius": "0%" });
           return;
         }
@@ -125,10 +169,6 @@ export function PortfolioMotion() {
         const counter = { value: 0 };
         const intro = gsap.timeline({
           defaults: { duration: 0.9, ease: "power4.out" },
-          onComplete: () => {
-            introDone = true;
-            window.clearTimeout(loaderFailSafe);
-          },
         });
 
         if (loaderCount) {
@@ -144,6 +184,10 @@ export function PortfolioMotion() {
         });
         document.querySelector(".loader")?.classList.add("is-animating");
         gsap.set(".scroll-progress", {
+          scaleX: 0,
+          transformOrigin: "left center",
+        });
+        gsap.set(".loader-bar", {
           scaleX: 0,
           transformOrigin: "left center",
         });
@@ -193,6 +237,15 @@ export function PortfolioMotion() {
             },
             "<",
           )
+          .to(
+            ".loader-bar",
+            {
+              scaleX: 1,
+              duration: 1.55,
+              ease: "power3.inOut",
+            },
+            "<",
+          )
           .to(".loader-words span", {
             yPercent: -110,
             autoAlpha: 0,
@@ -201,20 +254,29 @@ export function PortfolioMotion() {
             ease: "power3.in",
           })
           .to(".loader", {
-            y: "-110svh",
+            y: () => -(window.innerHeight + 120),
             borderBottomLeftRadius: "100%",
             borderBottomRightRadius: "100%",
             duration: 1.25,
             ease: "power4.inOut",
             force3D: true,
           }, "-=0.12")
-          .set(".loader", { display: "none", clearProps: "transform,borderRadius" })
           .call(() => {
-            introDone = true;
+            loaderDone = true;
+            window.clearTimeout(loaderFailSafe);
             const loader = document.querySelector(".loader");
             loader?.classList.remove("is-animating");
           })
+          .set(".loader", {
+            autoAlpha: 0,
+            display: "none",
+            pointerEvents: "none",
+            clearProps: "transform,borderRadius",
+          })
           .set("body", { overflow: "" })
+          .call(() => {
+            ScrollTrigger.refresh();
+          })
           .from("[data-animate='nav']", { y: -42, autoAlpha: 0, scale: 0.985 })
           .from(
             "[data-animate='headline']",
@@ -228,7 +290,7 @@ export function PortfolioMotion() {
             "-=0.35",
           )
           .from("[data-animate='dots'] span", {
-            y: 36,
+            y: isMobile ? 10 : 36,
             autoAlpha: 0,
             scale: 0,
             stagger: { amount: 0.55, from: "center" },
@@ -240,8 +302,8 @@ export function PortfolioMotion() {
           );
 
         gsap.to("[data-animate='dots'] span", {
-          y: -18,
-          scale: 1.12,
+          y: isMobile ? -4 : -18,
+          scale: isMobile ? 1.04 : 1.12,
           duration: 1.35,
           ease: "sine.inOut",
           repeat: -1,
@@ -459,10 +521,10 @@ export function PortfolioMotion() {
         });
 
         gsap.fromTo(".capability-chip", {
-          y: 90,
+          y: isMobile ? 34 : 90,
           autoAlpha: 0.15,
-          scale: 0.82,
-          rotation: (index) => (index % 2 === 0 ? -7 : 7),
+          scale: isMobile ? 0.96 : 0.82,
+          rotation: (index) => (isMobile ? 0 : index % 2 === 0 ? -7 : 7),
         }, {
           y: 0,
           autoAlpha: 1,
@@ -478,18 +540,20 @@ export function PortfolioMotion() {
           },
         });
 
-        gsap.utils.toArray<HTMLElement>(".capability-chip").forEach((chip, index) => {
-          gsap.to(chip, {
-            y: index % 2 === 0 ? -34 : 28,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".capability-marquee",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
+        if (!isMobile) {
+          gsap.utils.toArray<HTMLElement>(".capability-chip").forEach((chip, index) => {
+            gsap.to(chip, {
+              y: index % 2 === 0 ? -34 : 28,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".capability-marquee",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            });
           });
-        });
+        }
 
         gsap.utils.toArray<HTMLElement>(".work-card").forEach((card) => {
           gsap.fromTo(

@@ -28,7 +28,8 @@ export function HeroSection() {
         <h2>
           I build
           <br />
-          web products.
+          web <br className="mobile-break" />
+          products.
         </h2>
         <a href="mailto:amantajati15@gmail.com">
           Start a conversation <ArrowUpRight aria-hidden="true" size={18} />
