@@ -7,13 +7,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const loaderPalette = [
-  "#ff7f6e",
-  "#bca7ef",
-  "#00bfa6",
-  "#f3c548",
-  "#ff91c7",
-  "#79b8ff",
-  "#d7ef72",
+  "#f1785e",
+  "#f6c5bf",
+  "#e8cfc1",
+  "#d99a82",
+  "#e6ab94",
+  "#c98a76",
+  "#f0b6a4",
 ];
 
 const loaderColorStorageKey = "amantajatii-loader-color";
@@ -92,22 +92,6 @@ export function PortfolioMotion() {
       gsap.set("body", { overflow: "" });
     };
     const loaderFailSafe = window.setTimeout(hideLoader, 8000);
-    const header = document.querySelector<HTMLElement>(".onda-header");
-    const navTween = header
-      ? gsap.to(header, {
-          "--nav-progress": 1,
-          duration: 0.55,
-          ease: "power3.out",
-          paused: true,
-          overwrite: "auto",
-        })
-      : null;
-    const updateHeader = () => {
-      navTween?.progress(Math.min(window.scrollY / 96, 1));
-    };
-
-    updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
 
     mm.add(
       {
@@ -671,7 +655,6 @@ export function PortfolioMotion() {
 
     return () => {
       window.clearTimeout(loaderFailSafe);
-      window.removeEventListener("scroll", updateHeader);
       mm.revert();
     };
   }, []);

@@ -13,7 +13,7 @@ export function HeroSection() {
           Diaz.
         </h1>
         <p data-animate="fade">
-          A frontend engineer and Information Technology student at UGM,
+          A frontend engineer and Information Engineering student at UGM,
           building polished interfaces for Web3, AI, and payment products.
         </p>
       </div>
