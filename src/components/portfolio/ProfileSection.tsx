@@ -6,12 +6,12 @@ export function ProfileSection() {
       <div className="profile-copy">
         <p className="section-kicker">Profile</p>
         <h2 className="line-reveal">
-          Engineering clarity with a designer&apos;s eye.
+          Product-minded frontend engineering.
         </h2>
         <p>
-          I&apos;m Diaz, an Information Technology student at UGM who enjoys
-          turning messy product ideas into interfaces that feel clear, fast,
-          and ready to ship.
+          I&apos;m Diaz, an Information Technology student at UGM. I work across
+          interface systems, Web3 product flows, performance details, and
+          community-led product work.
         </p>
         <div className="profile-tags" aria-label="Focus areas">
           <span>Frontend</span>
@@ -21,14 +21,21 @@ export function ProfileSection() {
         </div>
       </div>
 
-      <ul className="profile-list">
-        {experience.map((item, index) => (
-          <li key={item}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <p>{item}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="profile-ledger" aria-label="Profile highlights">
+        <div className="profile-ledger-heading">
+          <span>Selected Signals</span>
+          <p>Study, ship, document, repeat.</p>
+        </div>
+
+        <ul className="profile-list">
+          {experience.map((item, index) => (
+            <li key={item}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
