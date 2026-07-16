@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,15 +57,36 @@ export function PortfolioMotion() {
   useLayoutEffect(() => {
     const loader = document.querySelector<HTMLElement>(".loader");
     const nextColor = pickLoaderColor();
+    const scrollRestoration = window.history.scrollRestoration;
+
+    window.history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
 
     finalLoaderColor.current = nextColor;
 
     if (loader) {
       loader.style.setProperty("--loader-bg", pickDifferentLoaderColor(nextColor));
     }
+
+    return () => {
+      window.history.scrollRestoration = scrollRestoration;
+    };
   }, []);
 
   useEffect(() => {
+    const lenis = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? null
+        : new Lenis({
+          anchors: true,
+          autoRaf: false,
+          lerp: 0.065,
+        });
+    const syncLenis = (time: number) => lenis?.raf(time * 1000);
+
+    lenis?.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(syncLenis);
+    gsap.ticker.lagSmoothing(0);
+
     const mm = gsap.matchMedia();
     let loaderDone = false;
     const hideLoader = () => {
@@ -655,6 +677,9 @@ export function PortfolioMotion() {
 
     return () => {
       window.clearTimeout(loaderFailSafe);
+      lenis?.off("scroll", ScrollTrigger.update);
+      gsap.ticker.remove(syncLenis);
+      lenis?.destroy();
       mm.revert();
     };
   }, []);
